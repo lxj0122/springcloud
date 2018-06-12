@@ -1,4 +1,4 @@
-package springcloud.helloserviceapi.entity;
+package com.spring.entity;
 
 import java.io.Serializable;
 

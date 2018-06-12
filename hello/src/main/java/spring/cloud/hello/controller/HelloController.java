@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import spring.cloud.hello.entity.User;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,15 +19,20 @@ import java.util.List;
  */
 @RestController
 public class HelloController {
+
     private final Logger logger= Logger.getLogger(getClass());
     @Autowired
     private DiscoveryClient discoveryClient;
 
     @RequestMapping(value="/hello" , method= RequestMethod.GET)
-    public String  index(){
+    public String  index() throws InterruptedException {
         ServiceInstance serviceInstance=discoveryClient.getLocalServiceInstance();
+        //测试超时
+//        int sleepTime=new Random().nextInt(3000);
+//        logger.info("sleepTime:"+sleepTime);
+//        Thread.sleep(sleepTime);
         logger.info("/hello,host:"+serviceInstance.getHost()+",serviceId:"+serviceInstance.getServiceId());
-        List<String> serviceList=discoveryClient.getServices();
+//        List<String> serviceList=discoveryClient.getServices();
         /*if(!CollectionUtils.isEmpty(serviceList)){
             serviceList.stream().forEach(s->{
                 List<ServiceInstance> serviceInstanceList=discoveryClient.getInstances(s);

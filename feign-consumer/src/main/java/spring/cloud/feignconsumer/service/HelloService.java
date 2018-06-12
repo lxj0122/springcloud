@@ -2,6 +2,7 @@ package spring.cloud.feignconsumer.service;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.*;
+import spring.cloud.feignconsumer.config.FullLogConfiguration;
 import spring.cloud.feignconsumer.entity.User;
 
 /**
@@ -10,7 +11,8 @@ import spring.cloud.feignconsumer.entity.User;
  * Date: 2018/5/24
  * Time: 15:25
  */
-@FeignClient("hello-service")
+//@FeignClient(name="HELLO-SERVICE",fallback = HelloServiceFallback.class)  服务降级
+@FeignClient(name="HELLO-SERVICE",configuration = FullLogConfiguration.class)   //调整日志级别
 public interface HelloService {
 
     @RequestMapping("/hello")
